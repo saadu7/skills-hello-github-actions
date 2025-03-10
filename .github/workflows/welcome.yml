@@ -1,6 +1,6 @@
-name: Post welcome comment
+name: Post welcome comment    # gives workflow a name, now appearing in the Actions tab
 on:
   pull_request:
-    types: [opened]
-permissions:
-  pull-requests: write
+    types: [opened]           # indicates that your workflow will execute whenever someone opens a pull requests in your repo
+permissions:                  # assigns the workflow permissions to operate on the repo
+  pull-requests: write        # gives the workflow permission to write to pull requests, which is needed to create the welcome comment
