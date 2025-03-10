@@ -1,0 +1,15 @@
+name: Post welcome comment    # gives workflow a name, now appearing in the Actions tab
+on:
+  pull_request:
+    types: [opened]           # indicates that your workflow will execute whenever someone opens a pull requests in your repo
+permissions:                  # assigns the workflow permissions to operate on the repo
+  pull-requests: write        # gives the workflow permission to write to pull requests, which is needed to create the welcome comment
+jobs:
+  build:
+    name: Post welcome comment
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh pr comment $PR_URL --body "Welcome to the repository!"   # uses GitHub CLI (gh) to  add comment when a pull request is opened
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}     # to allow GitHub CLI to post a comment, we set this environment variable to the value of the GITHUB_TOKEN secret, which is an installation access token
+          PR_URL: ${{ github.event.pull_request.html_url }}     # we set this environment variable ot the URL of the newly created pull request, to use in the gh command
